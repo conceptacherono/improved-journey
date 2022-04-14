@@ -1,4 +1,4 @@
-from django.conf.urls import url
+#from django.conf.urls import urls
 from django.urls import path
 from . import views
 from django.conf import settings
@@ -15,8 +15,8 @@ urlpatterns = [
     path("project/rate/<int:id>/", views.rate_project, name="rate_project"),
     path("search/", views.search_project, name="search_project"),
     # api
-    url(r'^api/profile/$', views.ProfileList.as_view()),
-    url(r'^api/project/$', views.ProjectList.as_view()),
+   # path('api/profile/', views.ProfileList.as_view()),
+    #path('api/project/', views.ProjectList.as_view()),
 
 ]
 

@@ -12,20 +12,19 @@ from rest_framework import status
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializer import ProfileSerializer,ProjectSerializer
 from .permissions import IsAdminOrReadOnly
+
 
 # Create your views here.
 def index(request):  # Home page
     project = Project.objects.all()
-    # get the latest project from the database
-    latest_project = project[0]
+
     # get project rating
-    rating = Rating.objects.filter(project_id=latest_project.id).first()
+    #rating = Rating.objects.filter(project_id=latest_project.id).first()
     # print(latest_project.id)
 
     return render(
-        request, "index.html", {"projects": project, "project_home": latest_project, "rating": rating}
+        request, "index.html", {"projects": project}
     )
 
 
@@ -184,21 +183,3 @@ def search_project(request):
 
 
 
-# rest api ====================================
-class ProfileList(APIView): # get all profiles
-    permission_classes = (IsAdminOrReadOnly,)
-    def get(self, request, format=None):
-        all_profiles = Profile.objects.all()
-        serializers = ProfileSerializer(all_profiles, many=True)
-        return Response(serializers.data)
-
-    # def post(self, request, format=None):
-    #     serializers = MerchSerializer(data=request.data)
-
-
-class ProjectList(APIView): # get all projects
-    permission_classes = (IsAdminOrReadOnly,)
-    def get(self, request, format=None):
-        all_projects = Project.objects.all()
-        serializers = ProjectSerializer(all_projects, many=True)
-        return Response(serializers.data)
