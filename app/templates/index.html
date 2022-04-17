@@ -1,7 +1,10 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
 {% block content %}
-<!-- homepage section -->
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<!-- homepage section-->
 <section class="homepage">
     <div class="home">
         <div class="container">
@@ -9,7 +12,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8 text-center">
                     <div class="homepage-content">
-                        <a href="{% url 'project_details' project_home.id %}">
+                         <a href="{% url 'project' %}">
                             <h1 class="text-white text-bold text-capitalize">
                                 {{project_home.title }}
                             </h1>
@@ -21,49 +24,50 @@
                                 <i>from</i>
                                 <strong class="text-capitalize">{{project_home.location }}</strong>
                                 <!-- with
-                                <strong>7.53</strong> -->
-                            </p>
-                            <div class="button-group mt-5">
-                                <div class="d-flex justify-content-center">
-                                    <div>
-                                        <a class="btn btn-design"><span>{{ rating.design_rate }}</span></a> <br>
-                                        <span>Design</span>
-                                    </div>
-                                    <div>
-                                        <a class="btn btn-usability"><span>{{ rating.usability_rate }}</span></a> <br>
-                                        <span>Usability</span>
-                                    </div>
-                                    <div>
-                                        <a class="btn btn-content"><span>{{ rating.content_rate }}</span></a> <br>
-                                        <span>Content</span>
-                                    </div>
-                                </div>
+                                    <strong>7.53</strong> -->
+                                </p>
                             </div>
-                        </a>
-                        <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-10">
-                                <!-- search input -->
-                                <form action="{% url 'search_project' %}" class="mt-5" >
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Search for Project..." aria-label="Search for..."
-                                            aria-describedby="basic-addon2" name="search_term">
-                                        <div class="input-group-append">
-                                            <button class="btn" type="button">Search</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-md-1"></div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
+<div class="button-group mt-5">
+    <div class="d-flex justify-content-center">
+        <div>
+            <a class="btn btn-design"><span>{{ rating.design_rate }}</span></a> <br>
+            <span>Design</span>
+        </div>
+        <div>
+            <a class="btn btn-usability"><span>{{ rating.usability_rate }}</span></a> <br>
+            <span>Usability</span>
+        </div>
+        <div>
+            <a class="btn btn-content"><span>{{ rating.content_rate }}</span></a> <br>
+            <span>Content</span>
         </div>
     </div>
+</div>
+</a>
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+ <!-- search input -->
+ <form action="{% url 'search_project' %}" class="mt-5" >
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search for Project..." aria-label="Search for..."
+            aria-describedby="basic-addon2" name="search_term">
+        <div class="input-group-append">
+            <button class="btn" type="button">Search</button>
+        </div>
+    </div>
+</form>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div>
+</div>
+<div class="col-md-2"></div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- blogs -->
 <section class="blog-section" id="posts">
     <div class="container mt-5">

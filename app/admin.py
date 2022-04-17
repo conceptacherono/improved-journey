@@ -7,3 +7,6 @@ admin.site.register(Profile)
 # admin.site.register(DesignRate)
 # admin.site.register(UsabilityRate)
 # admin.site.register(ContentRate)
+
+
+

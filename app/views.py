@@ -12,19 +12,22 @@ from rest_framework import status
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .serializers import ProfileSerializer,ProjectSerializer
 from .permissions import IsAdminOrReadOnly
 
 
 # Create your views here.
+
 def index(request):  # Home page
     project = Project.objects.all()
-
+    # get the latest project from the database
+    latest_project = project[0]
     # get project rating
-    #rating = Rating.objects.filter(project_id=latest_project.id).first()
+    rating = Rating.objects.filter(project_id=latest_project.id).first()
     # print(latest_project.id)
 
     return render(
-        request, "index.html", {"projects": project}
+        request, "index.html", {"projects": project, "project_home": latest_project, "rating": rating}
     )
 
 
@@ -35,13 +38,20 @@ def project_details(request, project_id):
     rating = Rating.objects.filter(project=project)
     return render(request, "project.html", {"project": project, "rating": rating})
 
+@login_required(login_url="/accounts/login/")
+def project(request):  # view project
+    current_user = request.user
+    project = Project.objects.filter(user_id=current_user.id).all()  # get all projects
+    return render(request, "profile.html", {"images": project})
+
 
 @login_required(login_url="/accounts/login/")
 def profile(request):  # view profile
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()  # get profile
-    project = Project.objects.filter(user_id=current_user.id).all()  # get all projects
+    # get all projects
     return render(request, "profile.html", {"profile": profile, "images": project})
+
 
 
 @login_required(login_url="/accounts/login/")
@@ -181,5 +191,22 @@ def search_project(request):
         message = "You haven't searched for any term"
         return render(request, "search.html", {"message": message})
 
+# rest api ====================================
+class ProfileList(APIView): # get all profiles
+    permission_classes = (IsAdminOrReadOnly,)
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
 
+    # def post(self, request, format=None):
+    #     serializers = MerchSerializer(data=request.data)
+
+
+class ProjectList(APIView): # get all projects
+    permission_classes = (IsAdminOrReadOnly,)
+    def get(self, request, format=None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects, many=True)
+        return Response(serializers.data)
 

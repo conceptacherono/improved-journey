@@ -62,6 +62,13 @@ DATABASES['default'].update(db_from_env)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
+cloudinary.config(
+  cloud_name = 'dqqjcjeja',
+  api_key = '486896189457733',
+  api_secret = 'S_UQZBbWD-hRnOVvp_hO1MECo_k',
+)
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -162,8 +169,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
@@ -174,10 +181,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'#cloudinary config
-cloudinary.config(
-    cloud_name=config('CLOUDINARY_CLOUD_NAME'),
-    api_key=config('CLOUDINARY_API_KEY'),
-    api_secret=config('CLOUDINARY_API_SECRET'),
-    secure=True
-)
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+django_heroku.settings(locals())
