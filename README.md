@@ -1,5 +1,8 @@
 # improved-journey
-
+#### Here is the landing page of Awards Web App, April 2022.
+#### By **Concepta Cherono**
+## Description
+This is web application that allows you to view different projects that have been posted. You can vote, comment and rate a project. Users can register in order to post their projects.
 
 
 ## Table of contents
