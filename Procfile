@@ -1,1 +1,3 @@
-web: gunicorn awards.wsgi --log-file -
+web: gunicorn awards.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
