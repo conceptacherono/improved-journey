@@ -34,7 +34,7 @@ DEBUG = True
 #SECRET_KEY = 'django-insecure-eq@5exlqnapd_4e(0@go5&+=5$u3*(9nk8w0u#6tj50(l-$vai'
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 # development
 if config('MODE')=="dev":
    DATABASES = {
